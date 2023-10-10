@@ -15,7 +15,7 @@ function fetchResponse() {
 
     const body = JSON.stringify({
         prompt: userInput,
-        max_tokens: 50
+        max_tokens: 512
     });
 
     fetch(API_ENDPOINT, {
