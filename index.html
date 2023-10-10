@@ -3,18 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simple Calculator</title>
+    <title>GPTWEB</title>
     <link rel="stylesheet" href="styles.css">
 </head>
+<title>GPT-WEB</title>
 <body>
     <div class="container">
-        <h2>GPT-WEB</h2>
-        <input type="number" id="input1" placeholder="输入Openai-Key">
-        <input type="number" id="input2" placeholder="输入你的问题">
-        <button onclick="calculate()">发送！</button>
-        <input type="text" id="output" readonly placeholder="GPT的回答">
+        <h2>GPT问答</h2>
+        <h2>作者: Charles Wu</h2>
+        <input type="text" id="apiInput" placeholder="输入api令牌">
+        <input type="text" id="userInput" placeholder="输入问题......">
+        <button onclick="fetchResponse()">提问！</button>
+        <div id="response"></div>
+    
+        <script src="script.js"></script>
     </div>
 
-    <script src="script.js"></script>
 </body>
 </html>
