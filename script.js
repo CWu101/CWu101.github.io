@@ -6,7 +6,7 @@ function fetchResponse_xunfei() {
     const app_secret="MWNmMDlmYTY0ZTllNmI4NzM1OGU2YTFj"
     const api_key = "175a0acc6cf8aa44963ac60a3c1854af"
         // 创建一个WebSocket连接
-    var socket = new WebSocket('ws://spark-api.xf-yun.com/v2.1/chat');
+    var socket = new WebSocket('wss://spark-api.xf-yun.com/v2.1/chat');
 
     // 打开WebSocket连接后，发送请求数据
     socket.onopen = function(event) {
