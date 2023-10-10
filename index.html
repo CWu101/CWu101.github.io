@@ -5,6 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GPTWEB</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        .bordered-box {
+            border: 3px solid #3498db;  /* 蓝色边框 */
+            height: 50px;  /* 定义div的高度 */
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            border-radius: 15px;  /* 圆角边框 */
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);  /* 简单的阴影效果 */
+            background-color: #ffffff;  /* 白色背景 */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;  /* 过渡效果 */
+        }
+    </style>
 </head>
 <title>GPT-WEB</title>
 <body>
@@ -14,7 +27,7 @@
         <input type="text" id="apiInput" placeholder="输入api令牌">
         <input type="text" id="userInput" placeholder="输入问题......">
         <button onclick="fetchResponse()">提问！</button>
-        <div id="response"></div>
+        <div class="bordered-box"  id="response"></div>
     
         <script src="script.js"></script>
     </div>
