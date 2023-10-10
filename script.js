@@ -1,4 +1,4 @@
-const API_ENDPOINT = "https://api.openai.com/v1/engines/text-davinci-002/completions";
+const API_ENDPOINT = "https://api.openai.com/v1/engines/text-davinci-003/completions";
 
 function fetchResponse() {
     const API_KEY = document.getElementById('apiInput').value;
