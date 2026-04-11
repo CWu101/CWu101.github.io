@@ -1,4 +1,3 @@
-import { MapVisitorsWidget } from "./components/MapVisitorsWidget";
 import { useEffect, useRef, useState, type MouseEvent } from "react";
 import { profile } from "./data/profile";
 
@@ -197,7 +196,17 @@ function App() {
                 <span>{profile.contact.github.label}</span>
               </a>
             </div>
-            <MapVisitorsWidget />
+            <div className="contact-link-item contact-meta">
+              <span className="contact-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" focusable="false">
+                  <path
+                    d="M12 20.4 4.9 13.8a4.7 4.7 0 0 1 6.6-6.7L12 7.6l.5-.5a4.7 4.7 0 0 1 6.6 6.7Z"
+                    fill="currentColor"
+                  />
+                </svg>
+              </span>
+              <span className="contact-meta-text">Made this page with love | ©2026 Qinkun</span>
+            </div>
           </div>
         </section>
       </main>
