@@ -19,6 +19,8 @@ function App() {
       .filter((element): element is HTMLElement => element !== null);
     const isMobile = window.matchMedia("(max-width: 960px)").matches;
 
+    console.log(isMobile ? "移动端" : "PC端");
+
     const observer = new IntersectionObserver(
       (entries) => {
         const visibleEntries = entries
@@ -40,6 +42,84 @@ function App() {
 
     return () => {
       observer.disconnect();
+    };
+  }, []);
+
+  useEffect(() => {
+    const content = contentRef.current;
+    if (!content) {
+      return;
+    }
+
+    const isMobile = window.matchMedia("(max-width: 960px)").matches;
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    if (!isMobile || prefersReducedMotion) {
+      return;
+    }
+
+    const hintDistance = Math.min(72, Math.max(40, Math.round(window.innerWidth * 0.12)));
+    let startTimer = 0;
+    let returnTimer = 0;
+    let restoreTimer = 0;
+    let animationFrame = 0;
+
+    const animateScroll = (from: number, to: number, duration: number, onDone?: () => void) => {
+      const start = performance.now();
+
+      const step = (now: number) => {
+        const elapsed = now - start;
+        const progress = Math.min(elapsed / duration, 1);
+        const eased = 0.5 - Math.cos(progress * Math.PI) / 2;
+
+        content.scrollLeft = from + (to - from) * eased;
+
+        if (progress < 1) {
+          animationFrame = window.requestAnimationFrame(step);
+          return;
+        }
+
+        animationFrame = 0;
+        onDone?.();
+      };
+
+      animationFrame = window.requestAnimationFrame(step);
+    };
+
+    const runHint = () => {
+      if (content.scrollWidth <= content.clientWidth) {
+        return;
+      }
+
+      const previousSnapType = content.style.scrollSnapType;
+      content.style.scrollSnapType = "none";
+      content.scrollLeft = 0;
+
+      returnTimer = window.setTimeout(() => {
+        animateScroll(hintDistance, 0, 600);
+      }, 760);
+
+      restoreTimer = window.setTimeout(() => {
+        content.style.scrollSnapType = previousSnapType;
+      }, 1500);
+
+      animateScroll(0, hintDistance, 680);
+    };
+
+    startTimer = window.setTimeout(() => {
+      window.requestAnimationFrame(() => {
+        window.requestAnimationFrame(runHint);
+      });
+    }, 900);
+
+    return () => {
+      window.clearTimeout(startTimer);
+      window.clearTimeout(returnTimer);
+      window.clearTimeout(restoreTimer);
+      if (animationFrame) {
+        window.cancelAnimationFrame(animationFrame);
+      }
+      content.style.scrollSnapType = "";
     };
   }, []);
 
