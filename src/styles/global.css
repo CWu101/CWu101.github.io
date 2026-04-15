@@ -80,9 +80,16 @@ a {
 .page-background-scrim {
   z-index: 1;
   background:
-    radial-gradient(circle at 18% 20%, rgba(21, 68, 124, 0.2), transparent 34%),
-    radial-gradient(circle at 84% 22%, rgba(0, 172, 193, 0.12), transparent 28%),
-    linear-gradient(180deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.78));
+    radial-gradient(circle at 18% 20%, rgba(255, 255, 255, 0.04), transparent 34%),
+    radial-gradient(circle at 84% 22%, rgba(255, 255, 255, 0.025), transparent 28%),
+    linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 1) 0%,
+      rgba(0, 0, 0, 0.66) 22%,
+      rgba(0, 0, 0, 0.52) 50%,
+      rgba(0, 0, 0, 0.68) 78%,
+      rgba(0, 0, 0, 1) 100%
+    );
 }
 
 .textmode-background,
@@ -102,8 +109,7 @@ a {
 
 .textmode-canvas {
   display: block;
-  opacity: 0.72;
-  filter: saturate(1.1);
+  opacity: 0.48;
 }
 
 .layout-shell {
