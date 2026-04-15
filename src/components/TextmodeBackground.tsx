@@ -2,33 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { textmode } from "textmode.js";
 
 function getFontSize() {
-  return window.innerWidth <= 640 ? 6 : 24;
-}
-
-function getCanvasSize() {
-  const overscan = window.innerWidth <= 640 ? 1.5 : 1.35;
-
-  return {
-    width: Math.round(window.innerWidth * overscan),
-    height: Math.round(window.innerHeight * overscan),
-  };
-}
-
-function syncCanvasFrame(canvas: HTMLCanvasElement) {
-  const { width, height } = getCanvasSize();
-
-  canvas.style.width = `${width}px`;
-  canvas.style.height = `${height}px`;
-}
-
-function applyMetrics(
-  tm: ReturnType<typeof textmode.create>,
-  canvas: HTMLCanvasElement,
-) {
-  const nextSize = getCanvasSize();
-  syncCanvasFrame(canvas);
-  tm.resizeCanvas(nextSize.width, nextSize.height);
-  tm.fontSize(getFontSize());
+  return 6;
 }
 
 export function TextmodeBackground() {
@@ -44,25 +18,19 @@ export function TextmodeBackground() {
     let hasRevealed = false;
     const canvas = document.createElement("canvas");
     canvas.className = "textmode-canvas";
-    syncCanvasFrame(canvas);
     mount.appendChild(canvas);
-    const initialSize = getCanvasSize();
 
     const tm = textmode.create({
       canvas,
-      width: initialSize.width,
-      height: initialSize.height,
+      width: window.innerWidth,
+      height: window.innerHeight,
       fontSize: getFontSize(),
       frameRate: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? 16 : 30,
     });
-    applyMetrics(tm, canvas);
-
-    const settleFrame = requestAnimationFrame(() => {
-      applyMetrics(tm, canvas);
-    });
 
     tm.windowResized(() => {
-      applyMetrics(tm, canvas);
+      tm.resizeCanvas(window.innerWidth, window.innerHeight);
+      tm.fontSize(getFontSize());
     });
 
     tm.draw(() => {
@@ -125,7 +93,6 @@ export function TextmodeBackground() {
     });
 
     return () => {
-      cancelAnimationFrame(settleFrame);
       tm.destroy();
       mount.replaceChildren();
     };
