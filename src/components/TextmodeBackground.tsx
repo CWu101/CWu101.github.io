@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { textmode } from "textmode.js";
 
 function getFontSize() {
-  return 6;
+  return 4;
 }
 
 export function TextmodeBackground() {
